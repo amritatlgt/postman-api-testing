@@ -1,0 +1,27 @@
+name: Run Postman Collection
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  postman-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install Newman
+        run: npm install -g newman
+
+      - name: Run Postman Collection
+        run: |
+          newman run "API Testing Learning.postman_collection.json" \
+          -e "QA Training.postman_environment.json"
