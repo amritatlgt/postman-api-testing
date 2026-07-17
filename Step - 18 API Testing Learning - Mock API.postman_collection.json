@@ -1,0 +1,121 @@
+{
+  "info": {
+    "_postman_id": "0bb6bd70-a795-41a3-9b49-3f6a965815d1",
+    "name": "Step - 18 API Testing Learning - Mock API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "42684724"
+  },
+  "item": [
+    {
+      "name": "Get products",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "https://367597da-4322-4d67-987c-114bc70e9149.mock.pstmn.io/products",
+          "protocol": "https",
+          "host": [
+            "367597da-4322-4d67-987c-114bc70e9149",
+            "mock",
+            "pstmn",
+            "io"
+          ],
+          "path": [
+            "products"
+          ]
+        }
+      },
+      "response": [
+        {
+          "name": "Example",
+          "originalRequest": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://367597da-4322-4d67-987c-114bc70e9149.mock.pstmn.io/products",
+              "protocol": "https",
+              "host": [
+                "367597da-4322-4d67-987c-114bc70e9149",
+                "mock",
+                "pstmn",
+                "io"
+              ],
+              "path": [
+                "products"
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": "",
+          "header": [
+            {
+              "key": ":status",
+              "value": 200
+            },
+            {
+              "key": "date",
+              "value": "Fri, 17 Jul 2026 08:07:43 GMT"
+            },
+            {
+              "key": "content-type",
+              "value": "text/html; charset=utf-8"
+            },
+            {
+              "key": "x-srv-trace",
+              "value": "v=1;t=341d628eb78bbd55"
+            },
+            {
+              "key": "x-srv-span",
+              "value": "v=1;s=0f29d45402d65594"
+            },
+            {
+              "key": "access-control-allow-origin",
+              "value": "*"
+            },
+            {
+              "key": "x-ratelimit-limit",
+              "value": "120"
+            },
+            {
+              "key": "x-ratelimit-remaining",
+              "value": "119"
+            },
+            {
+              "key": "x-ratelimit-reset",
+              "value": "1784275722"
+            },
+            {
+              "key": "vary",
+              "value": "Accept-Encoding"
+            },
+            {
+              "key": "set-cookie",
+              "value": "__cf_bm=mmpPrFSrHDaE2ola39A9t3TpVrMuEoen5UjgxYZ_2rc-1784275662.0331867-1.0.1.1-mYLh10cXseJZlaNZ99iegn9gQihZ6wkNGb6DgCi7uUp1CEuclUcnf6Y84uhu69NEZt654Ia1WMk2zV6pCvsF9OPqeyd93oBCk.pQBSVU0mfEoMEflOwxrOkGcvb8ZHrv; HttpOnly; SameSite=None; Secure; Path=/; Domain=pstmn.io; Expires=Fri, 17 Jul 2026 08:37:43 GMT"
+            },
+            {
+              "key": "cf-cache-status",
+              "value": "DYNAMIC"
+            },
+            {
+              "key": "server",
+              "value": "cloudflare"
+            },
+            {
+              "key": "cf-ray",
+              "value": "a1c7c127bbbda7f7-DEL"
+            }
+          ],
+          "cookie": [
+            {
+              "expires": "Invalid Date",
+              "domain": "",
+              "path": ""
+            }
+          ],
+          "body": "{\n    \"id\": 1,\n    \"title\": \"iPhone 17\",\n    \"price\": 999,\n    \"category\": \"smartphones\"\n}"
+        }
+      ]
+    }
+  ]
+}

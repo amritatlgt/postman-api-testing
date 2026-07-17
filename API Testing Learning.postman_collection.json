@@ -1,0 +1,832 @@
+{
+  "info": {
+    "_postman_id": "f96ba35b-8004-4f38-a2de-0498b750167a",
+    "name": "API Testing Learning",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "42684724"
+  },
+  "item": [
+    {
+      "name": "Step - 1",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "https://dummyjson.com/products",
+          "protocol": "https",
+          "host": [
+            "dummyjson",
+            "com"
+          ],
+          "path": [
+            "products"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Step - 2 First API Tests (Script)",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status code is 200\", function () {",
+              "    pm.response.to.have.status(200);",
+              "});",
+              "",
+              "pm.test(\"Response time is less than 1000ms\", function () {",
+              "    pm.expect(pm.response.responseTime).to.be.below(1000);",
+              "});",
+              "",
+              "pm.test(\"Response is JSON\", function () {",
+              "    pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\");",
+              "});",
+              "",
+              "var jsonData = pm.response.json();",
+              "",
+              "",
+              "pm.test(\"Products array exists\", function () {",
+              "    pm.expect(jsonData.products).to.be.an(\"array\");",
+              "});",
+              "",
+              "pm.test(\"Products array is not empty\", function () {",
+              "    pm.expect(jsonData.products.length).to.be.above(0);",
+              "});",
+              "",
+              "pm.test(\"Total products should be 194\", function () {",
+              "    pm.expect(jsonData.total).to.eql(194);",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "https://dummyjson.com/products",
+          "protocol": "https",
+          "host": [
+            "dummyjson",
+            "com"
+          ],
+          "path": [
+            "products"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Step - 3 Path Parameters",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "https://dummyjson.com/products",
+          "protocol": "https",
+          "host": [
+            "dummyjson",
+            "com"
+          ],
+          "path": [
+            "products"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Step - 4 Query Parameters",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "var jsonData = pm.response.json();",
+              "",
+              "pm.test(\"Status code is 200\", function () {",
+              "    pm.response.to.have.status(200);",
+              "});",
+              "",
+              "pm.test(\"Limit should be 10\", function () {",
+              "    pm.expect(jsonData.limit).to.eql(10);",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "https://dummyjson.com/products?limit=5&skip=20",
+          "protocol": "https",
+          "host": [
+            "dummyjson",
+            "com"
+          ],
+          "path": [
+            "products"
+          ],
+          "query": [
+            {
+              "key": "limit",
+              "value": "5"
+            },
+            {
+              "key": "skip",
+              "value": "20"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Step - 5 POST Request",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "var jsonData = pm.response.json();",
+              "",
+              "pm.test(\"Status code should be 200 or 201\", function () {",
+              "    pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+              "});",
+              "",
+              "pm.test(\"Product title should be iPhone 17\", function () {",
+              "    pm.expect(jsonData.title).to.eql(\"iPhone 17\");",
+              "});",
+              "",
+              "pm.test(\"Price should be 999\", function () {",
+              "    pm.expect(jsonData.price).to.eql(999);",
+              "});",
+              "",
+              "pm.test(\"Product ID should exist\", function () {",
+              "    pm.expect(jsonData.id).to.exist;",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"title\": \"iPhone 17\",\n    \"price\": 999,\n    \"category\": \"smartphones\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://dummyjson.com/products/add",
+          "protocol": "https",
+          "host": [
+            "dummyjson",
+            "com"
+          ],
+          "path": [
+            "products",
+            "add"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Step - 6 PUT",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "var jsonData = pm.response.json();",
+              "",
+              "pm.test(\"Status code should be 200\", function () {",
+              "    pm.response.to.have.status(200);",
+              "});",
+              "",
+              "pm.test(\"Product ID should remain 1\", function () {",
+              "    pm.expect(jsonData.id).to.eql(1);",
+              "});",
+              "",
+              "pm.test(\"Title should be updated\", function () {",
+              "    pm.expect(jsonData.title).to.eql(\"Updated Product\");",
+              "});",
+              "",
+              "pm.test(\"Price should be updated\", function () {",
+              "    pm.expect(jsonData.price).to.eql(500);",
+              "});",
+              "",
+              "pm.test(\"Category should be smartphones\", function () {",
+              "    pm.expect(jsonData.category).to.eql(\"smartphones\");",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "PUT",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"title\": \"Updated Product\",\n    \"price\": 500,\n    \"category\": \"smartphones\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://dummyjson.com/products/1",
+          "protocol": "https",
+          "host": [
+            "dummyjson",
+            "com"
+          ],
+          "path": [
+            "products",
+            "1"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Step - 7 PATCH",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "var jsonData = pm.response.json();",
+              "",
+              "pm.test(\"Status code should be 200\", function () {",
+              "    pm.response.to.have.status(200);",
+              "});",
+              "",
+              "pm.test(\"Product ID should be 1\", function () {",
+              "    pm.expect(jsonData.id).to.eql(1);",
+              "});",
+              "",
+              "pm.test(\"Price should be updated\", function () {",
+              "    pm.expect(jsonData.price).to.eql(600);",
+              "});",
+              "",
+              "pm.test(\"Title should still exist\", function () {",
+              "    pm.expect(jsonData.title).to.exist;",
+              "});",
+              "",
+              "pm.test(\"Category should still exist\", function () {",
+              "    pm.expect(jsonData.category).to.exist;",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "PATCH",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"price\": 600\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://dummyjson.com/products/1",
+          "protocol": "https",
+          "host": [
+            "dummyjson",
+            "com"
+          ],
+          "path": [
+            "products",
+            "1"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Step - 8 DELETE",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "var jsonData = pm.response.json();",
+              "",
+              "pm.test(\"Status code should be 200\", function () {",
+              "    pm.response.to.have.status(200);",
+              "});",
+              "",
+              "pm.test(\"Deleted product ID should be 1\", function () {",
+              "    pm.expect(jsonData.id).to.eql(1);",
+              "});",
+              "",
+              "pm.test(\"Product should be marked as deleted\", function () {",
+              "    pm.expect(jsonData.isDeleted).to.eql(true);",
+              "});",
+              "",
+              "pm.test(\"Deleted timestamp should exist\", function () {",
+              "    pm.expect(jsonData.deletedOn).to.exist;",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "https://dummyjson.com/products/1",
+          "protocol": "https",
+          "host": [
+            "dummyjson",
+            "com"
+          ],
+          "path": [
+            "products",
+            "1"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Step - 9 Authentication",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "var jsonData = pm.response.json();",
+              "",
+              "pm.test(\"Status code should be 200\", function () {",
+              "    pm.response.to.have.status(200);",
+              "});",
+              "",
+              "pm.test(\"Access token should exist\", function () {",
+              "    pm.expect(jsonData.accessToken).to.exist;",
+              "});",
+              "",
+              "pm.test(\"Username should be emilys\", function () {",
+              "    pm.expect(jsonData.username).to.eql(\"emilys\");",
+              "});",
+              "",
+              "pm.environment.set(\"accessToken\", jsonData.accessToken);"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"username\": \"{{username}}\",\n  \"password\": \"{{password}}\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://dummyjson.com/auth/login",
+          "protocol": "https",
+          "host": [
+            "dummyjson",
+            "com"
+          ],
+          "path": [
+            "auth",
+            "login"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Step - 10 Authorization or Access to other APIs",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "var jsonData = pm.response.json();",
+              "",
+              "pm.test(\"Status code is 200\", function () {",
+              "    pm.response.to.have.status(200);",
+              "});",
+              "",
+              "pm.test(\"Username should be emilys\", function () {",
+              "    pm.expect(jsonData.username).to.eql(\"emilys\");",
+              "});",
+              "",
+              "pm.test(\"Email should exist\", function () {",
+              "    pm.expect(jsonData.email).to.exist;",
+              "});",
+              "",
+              "pm.test(\"User ID should exist\", function () {",
+              "    pm.expect(jsonData.id).to.exist;",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{accessToken}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "https://dummyjson.com/auth/me",
+          "protocol": "https",
+          "host": [
+            "dummyjson",
+            "com"
+          ],
+          "path": [
+            "auth",
+            "me"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Step - 12 API Chaining",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "var jsonData = pm.response.json();",
+              "",
+              "pm.environment.set(\"productId\", jsonData.id);"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"title\": \"Updated Product\",\n    \"price\": 600,\n    \"category\": \"smartphones\"\n}"
+        },
+        "url": {
+          "raw": "https://dummyjson.com/products/add",
+          "protocol": "https",
+          "host": [
+            "dummyjson",
+            "com"
+          ],
+          "path": [
+            "products",
+            "add"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "API Chaining - 1 (Use the Variable in this API)",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "https://dummyjson.com/products/{{productId}}",
+          "protocol": "https",
+          "host": [
+            "dummyjson",
+            "com"
+          ],
+          "path": [
+            "products",
+            "{{productId}}"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Step - 13 Response Validation",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status Code should be 200\", function () {",
+              "    pm.response.to.have.status(200);",
+              "});",
+              "",
+              "var jsonData = pm.response.json();",
+              "",
+              "pm.test(\"Product ID should be 1\", function () {",
+              "    pm.expect(jsonData.id).to.eql(1);",
+              "});",
+              "",
+              "pm.test(\"Title should exist\", function () {",
+              "    pm.expect(jsonData.title).to.exist;",
+              "});",
+              "",
+              "pm.test(\"Category should exist\", function () {",
+              "    pm.expect(jsonData.category).to.exist;",
+              "});",
+              "",
+              "pm.test(\"Price should exist\", function () {",
+              "    pm.expect(jsonData.price).to.exist;",
+              "});",
+              "",
+              "pm.test(\"Title should be string\", function () {",
+              "    pm.expect(jsonData.title).to.be.a(\"string\");",
+              "});",
+              "",
+              "pm.test(\"Price should be number\", function () {",
+              "    pm.expect(jsonData.price).to.be.a(\"number\");",
+              "});",
+              "",
+              "pm.test(\"Availability should be boolean\", function () {",
+              "    pm.expect(jsonData.availabilityStatus).to.be.a(\"boolean\");",
+              "});",
+              "",
+              "pm.test(\"Tags should be array\", function () {",
+              "    pm.expect(jsonData.tags).to.be.an(\"array\");",
+              "});",
+              "",
+              "pm.test(\"Dimensions should be object\", function () {",
+              "    pm.expect(jsonData.dimensions).to.be.an(\"object\");",
+              "});",
+              "",
+              "pm.test(\"Tags should contain at least one value\", function () {",
+              "    pm.expect(jsonData.tags.length).to.be.above(0);",
+              "});",
+              "",
+              "pm.test(\"Price should be greater than 0\", function () {",
+              "    pm.expect(jsonData.price).to.be.above(0);",
+              "});",
+              "",
+              "pm.test(\"Stock should be greater than 0\", function () {",
+              "    pm.expect(jsonData.stock).to.be.above(0);",
+              "});",
+              "",
+              "pm.test(\"Rating should be between 0 and 5\", function () {",
+              "    pm.expect(jsonData.rating).to.be.within(0,5);",
+              "});",
+              "",
+              "pm.test(\"Width should be number\", function () {",
+              "    pm.expect(jsonData.dimensions.width).to.be.a(\"number\");",
+              "});",
+              "",
+              "pm.test(\"Height should be number\", function () {",
+              "    pm.expect(jsonData.dimensions.height).to.be.a(\"number\");",
+              "});",
+              "",
+              "pm.test(\"Depth should be number\", function () {",
+              "    pm.expect(jsonData.dimensions.depth).to.be.a(\"number\");",
+              "});",
+              "",
+              "pm.test(\"Title should not be empty\", function () {",
+              "    pm.expect(jsonData.title).to.not.be.empty;",
+              "});",
+              "",
+              "pm.test(\"First tag should exist\", function () {",
+              "    pm.expect(jsonData.tags[0]).to.exist;",
+              "});",
+              "",
+              "pm.test(\"Response time should be less than 1000 ms\", function () {",
+              "    pm.expect(pm.response.responseTime).to.be.below(1000);",
+              "});",
+              "",
+              "pm.test(\"Content-Type should be application/json\", function () {",
+              "    pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\");",
+              "});",
+              "",
+              "pm.test(\"Response size should be less than 5 KB\", function () {",
+              "    pm.expect(pm.response.responseSize).to.be.below(5000);",
+              "});",
+              "",
+              "pm.test(\"Discount should not be negative\", function () {",
+              "    pm.expect(jsonData.discountPercentage).to.be.at.least(0);",
+              "});",
+              "",
+              "pm.test(\"Stock should not be negative\", function () {",
+              "    pm.expect(jsonData.stock).to.be.at.least(0);",
+              "});",
+              "",
+              ""
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "method": "GET",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://dummyjson.com/products/1",
+          "protocol": "https",
+          "host": [
+            "dummyjson",
+            "com"
+          ],
+          "path": [
+            "products",
+            "1"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "JSON Schema Validation",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "const schema = {",
+              "    type: \"object\",",
+              "    properties: {",
+              "        id: { type: \"number\" },",
+              "        title: { type: \"string\" },",
+              "        description: { type: \"string\" },",
+              "        category: { type: \"string\" },",
+              "        price: { type: \"number\" },",
+              "        discountPercentage: { type: \"number\" },",
+              "        rating: { type: \"number\" },",
+              "        stock: { type: \"number\" },",
+              "        tags: {",
+              "            type: \"array\",",
+              "            items: {",
+              "                type: \"string\"",
+              "            }",
+              "        },",
+              "        dimensions: {",
+              "            type: \"object\",",
+              "            properties: {",
+              "                width: { type: \"number\" },",
+              "                height: { type: \"number\" },",
+              "                depth: { type: \"number\" }",
+              "            },",
+              "            required: [\"width\", \"height\", \"depth\"]",
+              "        }",
+              "    },",
+              "    required: [",
+              "        \"id\",",
+              "        \"title\",",
+              "        \"price\",",
+              "        \"category\",",
+              "        \"stock\",",
+              "        \"tags\",",
+              "        \"dimensions\"",
+              "    ]",
+              "};",
+              "",
+              "pm.test(\"Response matches JSON Schema\", function () {",
+              "    pm.response.to.have.jsonSchema(schema);",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "method": "GET",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": ""
+        },
+        "url": {
+          "raw": "https://dummyjson.com/products/1",
+          "protocol": "https",
+          "host": [
+            "dummyjson",
+            "com"
+          ],
+          "path": [
+            "products",
+            "1"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Step - 14 Pre Request Scripts and Dynamic Data",
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "exec": [
+              "pm.environment.set(\"productName\", \"Product_\" + Date.now());",
+              "",
+              "pm.environment.set(\"price\", Math.floor(Math.random() * 900) + 100);",
+              "",
+              "//ignore as this is not a part of API Data ",
+              "pm.environment.set(\"email\", pm.variables.replaceIn(\"{{$randomEmail}}\"));",
+              "",
+              "pm.environment.set(\"guid\", pm.variables.replaceIn(\"{{$guid}}\"));"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"title\": \"{{productName}}\",\n    \"price\": {{price}},\n    \"email\": \"{{email}}\",\n    \"requestId\": \"{{guid}}\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://dummyjson.com/products/add",
+          "protocol": "https",
+          "host": [
+            "dummyjson",
+            "com"
+          ],
+          "path": [
+            "products",
+            "add"
+          ]
+        }
+      },
+      "response": []
+    }
+  ]
+}
